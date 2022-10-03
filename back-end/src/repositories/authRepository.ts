@@ -1,7 +1,7 @@
 import { prisma } from "../config/database.js";
-import { CheckEmailData, CreteDataUser } from "../interfaces/createData.js";
+import { CheckEmailData, CreateDataUser } from "../interfaces/createData.js";
 
-async function createUser(userData: CreteDataUser) {
+async function createUser(userData: CreateDataUser) {
   await prisma.user.create({ data: userData });
 }
 
