@@ -3,7 +3,7 @@ import {
   CreateDataUser,
   CreateDataUserSignIn,
 } from "../interfaces/createData.js";
-import { authService } from "../services/authService";
+import { authService } from "../services/authService.js";
 
 export async function signUp(req: Request, res: Response) {
   const userInfo: CreateDataUser = {
