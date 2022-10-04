@@ -5,6 +5,6 @@ export const Container = styled.main`
   align-items: center;
   justify-content: center;
   background: blue;
-  width: 70%;
-  height: 10rem;
+  width: 100%;
+  height: 100%;
 `;
