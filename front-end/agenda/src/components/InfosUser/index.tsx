@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { ContactsInfos } from "../ContactsInfos";
+import { Delete } from "../DeleteContact";
 import { InfosButton } from "../SeeMoreButton";
 
 export interface ContactInfo {
@@ -10,6 +11,7 @@ export interface ContactInfo {
 }
 
 export interface InfosContact {
+  id: number;
   name: string;
   contact_info: ContactInfo[];
 }
@@ -18,12 +20,16 @@ interface InfosList {
   list: InfosContact[];
   updateContact: boolean;
   setUpdateContact: Dispatch<SetStateAction<boolean>>;
+  deleteContact: boolean;
+  setDeleteContact: Dispatch<SetStateAction<boolean>>;
 }
 
 export const InfosUser = ({
   list,
   updateContact,
   setUpdateContact,
+  deleteContact,
+  setDeleteContact,
 }: InfosList) => {
   const [toogleOpenInfos, setToogleOpenInfos] = useState<boolean>(true);
   const [infosContact, setInfosContact] = useState<string>("");
@@ -33,6 +39,11 @@ export const InfosUser = ({
       {list.map((element, index) => (
         <>
           <p key={index}>{element.name}</p>
+          <Delete
+            id={element.id}
+            deleteContact={deleteContact}
+            setDeleteContact={setDeleteContact}
+          />
           {element.contact_info.map((item) =>
             toogleOpenInfos && element.name === infosContact ? (
               <>

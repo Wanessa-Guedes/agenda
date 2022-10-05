@@ -32,7 +32,6 @@ const SignIn = () => {
     api
       .post("/sign-in", infos)
       .then((res) => {
-        console.log("infos sign-in", res.data);
         login({ token: res.data.token, id: res.data.id });
       })
       .catch((error) => {

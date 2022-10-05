@@ -8,6 +8,7 @@ export const Home = () => {
   const { isLogged } = useAuth();
   const [newContact, setNewContact] = useState<boolean>(false);
   const [updateContact, setUpdateContact] = useState<boolean>(false);
+  const [deleteContact, setDeleteContact] = useState<boolean>(false);
   const [contacts, setContacts] = useState<InfosContact[]>([]);
   const token = localStorage.getItem("token");
 
@@ -21,7 +22,7 @@ export const Home = () => {
       console.log(res.data);
       setContacts(res.data);
     });
-  }, [token, isLogged, newContact, updateContact]);
+  }, [token, isLogged, newContact, updateContact, deleteContact]);
 
   return (
     <>
@@ -32,6 +33,8 @@ export const Home = () => {
         list={contacts}
         updateContact={updateContact}
         setUpdateContact={setUpdateContact}
+        deleteContact={deleteContact}
+        setDeleteContact={setDeleteContact}
       />
     </>
   );
