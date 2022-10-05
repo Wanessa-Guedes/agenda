@@ -9,3 +9,4 @@ export type CreateDataUserSignIn = Omit<User, "id" | "creat_at" | "user_name">;
 export type CreateInfoContact = Omit<Contact_Info, "id" | "creat_at">;
 export type CreateInfos = Omit<Contact_Info, "id" | "creat_at" | "contactId">;
 export type CreateContact = Omit<Contact, "id" | "creat_at">;
+export type DeleteContact = Omit<Contact, "creat_at" | "name">;

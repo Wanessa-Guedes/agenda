@@ -1,7 +1,9 @@
 import { Router } from "express";
 import {
+  deleteContact,
   getUserContacts,
   insertUserContact,
+  updateContact,
 } from "../controllers/contactsControllers.js";
 import { schemaValidator } from "../middlewares/schemaValidator.js";
 import { validateToken } from "../middlewares/tokenValidator.js";
@@ -16,5 +18,12 @@ contactRouter.post(
   schemaValidator(contactSchema.insertContactSchema),
   insertUserContact
 );
+contactRouter.patch(
+  "/contacts",
+  validateToken,
+  schemaValidator(contactSchema.updateContactSchema),
+  updateContact
+);
+contactRouter.delete("/contacts/:id", validateToken, deleteContact);
 
 export default contactRouter;

@@ -3,6 +3,7 @@ import {
   CreateContact,
   CreateInfoContact,
   CreateInfos,
+  DeleteContact,
 } from "../interfaces/createData.js";
 
 async function getAllContacts(id: number) {
@@ -38,7 +39,65 @@ async function insertContact(
   });
 }
 
+async function updateContact(
+  contactData: CreateContact,
+  contactUpdate: CreateInfos
+) {
+  const contactId = await prisma.contact.findFirst({
+    where: {
+      userId: contactData.userId,
+      name: contactData.name,
+    },
+  });
+
+  const contactInfoId = await prisma.contact_Info.findFirst({
+    where: {
+      contactId: contactId.id,
+    },
+  });
+
+  await prisma.contact_Info.update({
+    where: {
+      id: contactInfoId.id,
+    },
+    data: {
+      whatsapp: contactUpdate.whatsapp,
+      email: contactUpdate.email,
+      tel: contactUpdate.tel,
+    },
+  });
+}
+
+async function deleteContact(contactData: DeleteContact) {
+  const contactId = await prisma.contact.findFirst({
+    where: {
+      id: contactData.id,
+      userId: contactData.userId,
+    },
+  });
+
+  const contactInfoId = await prisma.contact_Info.findFirst({
+    where: {
+      contactId: contactId.id,
+    },
+  });
+
+  await prisma.contact_Info.delete({
+    where: {
+      id: contactInfoId.id,
+    },
+  });
+
+  await prisma.contact.delete({
+    where: {
+      id: contactData.id,
+    },
+  });
+}
+
 export const contactsRepository = {
   getAllContacts,
   insertContact,
+  updateContact,
+  deleteContact,
 };
