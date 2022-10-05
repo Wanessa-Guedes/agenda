@@ -3,7 +3,7 @@ import {
   CreateContact,
   CreateInfoContact,
   CreateInfos,
-  DeleteContact,
+  ContactById,
 } from "../interfaces/createData.js";
 
 async function getAllContacts(id: number) {
@@ -40,13 +40,13 @@ async function insertContact(
 }
 
 async function updateContact(
-  contactData: CreateContact,
+  contactData: ContactById,
   contactUpdate: CreateInfos
 ) {
   const contactId = await prisma.contact.findFirst({
     where: {
+      id: contactData.id,
       userId: contactData.userId,
-      name: contactData.name,
     },
   });
 
@@ -68,7 +68,7 @@ async function updateContact(
   });
 }
 
-async function deleteContact(contactData: DeleteContact) {
+async function deleteContact(contactData: ContactById) {
   const contactId = await prisma.contact.findFirst({
     where: {
       id: contactData.id,

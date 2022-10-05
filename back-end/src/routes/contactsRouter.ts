@@ -19,7 +19,7 @@ contactRouter.post(
   insertUserContact
 );
 contactRouter.patch(
-  "/contacts",
+  "/contacts/:id",
   validateToken,
   schemaValidator(contactSchema.updateContactSchema),
   updateContact

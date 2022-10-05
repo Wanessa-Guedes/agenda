@@ -2,7 +2,7 @@ import {
   CreateContact,
   CreateInfoContact,
   CreateInfos,
-  DeleteContact,
+  ContactById,
 } from "../interfaces/createData.js";
 import { contactsRepository } from "../repositories/contactsRepository.js";
 
@@ -20,13 +20,13 @@ async function insertContact(
 }
 
 async function updateContact(
-  contactData: CreateContact,
+  contactData: ContactById,
   contactUpdate: CreateInfos
 ) {
   await contactsRepository.updateContact(contactData, contactUpdate);
 }
 
-async function deleteContact(contactData: DeleteContact) {
+async function deleteContact(contactData: ContactById) {
   await contactsRepository.deleteContact(contactData);
 }
 
