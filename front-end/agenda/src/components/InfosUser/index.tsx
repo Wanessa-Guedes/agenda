@@ -1,8 +1,17 @@
-export interface InfosContact {
-  name: string;
+import { useState } from "react";
+import { ContactsInfos } from "../ContactsInfos";
+import { InfosButton } from "../SeeMoreButton";
+
+export interface ContactInfo {
+  id: number;
   whatsapp: string;
   email: string;
   tel: string;
+}
+
+export interface InfosContact {
+  name: string;
+  contact_info: ContactInfo[];
 }
 
 interface InfosList {
@@ -10,13 +19,38 @@ interface InfosList {
 }
 
 export const InfosUser = ({ list }: InfosList) => {
+  const [toogleOpenInfos, setToogleOpenInfos] = useState<boolean>(true);
+  const [infosContact, setInfosContact] = useState<string>("");
+
   return (
     <>
-      <div>
-        {list.map((element, index) => (
+      {list.map((element, index) => (
+        <>
           <p key={index}>{element.name}</p>
-        ))}
-      </div>
+          {element.contact_info.map((item) =>
+            toogleOpenInfos && element.name === infosContact ? (
+              <>
+                <InfosButton
+                  value={"-"}
+                  toogleOpenInfos={false}
+                  setToogleOpenInfos={setToogleOpenInfos}
+                  infosContact={element.name}
+                  setInfosContact={setInfosContact}
+                />
+                <ContactsInfos key={item.email} item={item} />
+              </>
+            ) : (
+              <InfosButton
+                value={"+"}
+                toogleOpenInfos={true}
+                setToogleOpenInfos={setToogleOpenInfos}
+                infosContact={element.name}
+                setInfosContact={setInfosContact}
+              />
+            )
+          )}
+        </>
+      ))}
     </>
   );
 };
