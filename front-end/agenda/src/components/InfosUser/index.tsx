@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ContactsInfos } from "../ContactsInfos";
 import { InfosButton } from "../SeeMoreButton";
 
@@ -16,9 +16,15 @@ export interface InfosContact {
 
 interface InfosList {
   list: InfosContact[];
+  updateContact: boolean;
+  setUpdateContact: Dispatch<SetStateAction<boolean>>;
 }
 
-export const InfosUser = ({ list }: InfosList) => {
+export const InfosUser = ({
+  list,
+  updateContact,
+  setUpdateContact,
+}: InfosList) => {
   const [toogleOpenInfos, setToogleOpenInfos] = useState<boolean>(true);
   const [infosContact, setInfosContact] = useState<string>("");
 
@@ -37,7 +43,12 @@ export const InfosUser = ({ list }: InfosList) => {
                   infosContact={element.name}
                   setInfosContact={setInfosContact}
                 />
-                <ContactsInfos key={item.email} item={item} />
+                <ContactsInfos
+                  key={item.email}
+                  item={item}
+                  updateContact={updateContact}
+                  setUpdateContact={setUpdateContact}
+                />
               </>
             ) : (
               <InfosButton

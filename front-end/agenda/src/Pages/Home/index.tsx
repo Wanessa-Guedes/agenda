@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/auth";
 export const Home = () => {
   const { isLogged } = useAuth();
   const [newContact, setNewContact] = useState<boolean>(false);
+  const [updateContact, setUpdateContact] = useState<boolean>(false);
   const [contacts, setContacts] = useState<InfosContact[]>([]);
   const token = localStorage.getItem("token");
 
@@ -20,14 +21,18 @@ export const Home = () => {
       console.log(res.data);
       setContacts(res.data);
     });
-  }, [token, isLogged, newContact]);
+  }, [token, isLogged, newContact, updateContact]);
 
   return (
     <>
       <h1>Agenda Web</h1>
       <h3>Contatos</h3>
       <AddContact newContact={newContact} setNewContact={setNewContact} />
-      <InfosUser list={contacts} />
+      <InfosUser
+        list={contacts}
+        updateContact={updateContact}
+        setUpdateContact={setUpdateContact}
+      />
     </>
   );
 };

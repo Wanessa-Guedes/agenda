@@ -1,12 +1,15 @@
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
+import { api } from "../../api";
 import { ContactInfo } from "../InfosUser";
 import { Infos } from "./style";
 
 interface Props {
   item: ContactInfo;
+  updateContact: boolean;
+  setUpdateContact: Dispatch<SetStateAction<boolean>>;
 }
 
 interface EditInterface {
@@ -23,7 +26,19 @@ const EditSchema = Joi.object({
   tel: Joi.string().required(),
 });
 
-export const ContactsInfos = ({ item }: Props) => {
+const token = localStorage.getItem("token");
+
+const headers = {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+};
+
+export const ContactsInfos = ({
+  item,
+  updateContact,
+  setUpdateContact,
+}: Props) => {
   const [desabled, setDisabled] = useState<boolean>(true);
 
   const {
@@ -32,8 +47,17 @@ export const ContactsInfos = ({ item }: Props) => {
     formState: { errors },
   } = useForm<EditInterface>({ resolver: joiResolver(EditSchema) });
 
-  function updateInfos() {
-    console.log(register);
+  function updateInfos(data: EditInterface) {
+    api
+      .patch(`/contacts/${item.id}`, data, headers)
+      .then((res) => {
+        console.log("atualizei");
+        console.log("res data", res.data);
+        setUpdateContact(!updateContact);
+      })
+      .catch((error) => {
+        console.log("erro ao atualizar contato", error);
+      });
     setDisabled(true);
   }
 

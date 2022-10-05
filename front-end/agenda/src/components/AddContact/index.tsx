@@ -1,6 +1,6 @@
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { api } from "../../api";
 
@@ -28,9 +28,17 @@ interface Props {
 export const AddContact = ({ newContact, setNewContact }: Props) => {
   const [addNewContact, setAddNewContact] = useState<boolean>(false);
   const [disbale, setDisable] = useState<boolean>(false);
+  const [user, setUser] = useState<AddNewContactInterface>({
+    name: "",
+    whatsapp: "",
+    email: "",
+    tel: "",
+  });
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<AddNewContactInterface>({
     resolver: joiResolver(AddNewContSchema),
@@ -49,7 +57,6 @@ export const AddContact = ({ newContact, setNewContact }: Props) => {
   }
 
   function insertInfos(data: AddNewContactInterface) {
-    console.log("entrei");
     setDisable(true);
     api
       .post("/contacts", data, headers)
@@ -67,8 +74,14 @@ export const AddContact = ({ newContact, setNewContact }: Props) => {
   }
 
   function returnAdd(options: string) {
-    if (options === "voltar") setAddNewContact(false);
+    if (options === "voltar") {
+      setAddNewContact(false);
+    }
   }
+
+  useEffect(() => {
+    reset(user);
+  }, [addNewContact]);
 
   return (
     <>
