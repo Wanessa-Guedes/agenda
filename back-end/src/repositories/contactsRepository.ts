@@ -14,6 +14,9 @@ async function getAllContacts(id: number) {
     include: {
       contact_info: true,
     },
+    orderBy: {
+      name: "asc",
+    },
   });
 
   return contacts;
