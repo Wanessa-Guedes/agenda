@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { api } from "../../api";
+import * as Style from "./style";
 
 interface Props {
   id: number;
@@ -43,11 +44,13 @@ export const DeleteModal = ({
   }
   return (
     <>
-      <div>
-        <h5>Tem certeza que deseja deletar o contato?</h5>
-        <button onClick={() => removeContact(id)}>Sim</button>
-        <button onClick={closeModal}>Não</button>
-      </div>
+      <Style.ModalContainer>
+        <Style.Modal>
+          <h6>Tem certeza que deseja deletar o contato?</h6>
+          <Style.Button onClick={() => removeContact(id)}>Sim</Style.Button>
+          <Style.Button onClick={closeModal}>Não</Style.Button>
+        </Style.Modal>
+      </Style.ModalContainer>
     </>
   );
 };

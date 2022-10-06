@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { api } from "../../api";
 import { AddContact } from "../../components/AddContact";
 import { InfosContact, InfosUser } from "../../components/InfosUser";
+import { Buttonlogout } from "../../components/Logout";
 import { useAuth } from "../../contexts/auth";
+import * as Style from "./style";
 
 export const Home = () => {
   const { isLogged } = useAuth();
@@ -26,16 +28,25 @@ export const Home = () => {
 
   return (
     <>
-      <h1>Agenda Web</h1>
-      <h3>Contatos</h3>
-      <AddContact newContact={newContact} setNewContact={setNewContact} />
-      <InfosUser
-        list={contacts}
-        updateContact={updateContact}
-        setUpdateContact={setUpdateContact}
-        deleteContact={deleteContact}
-        setDeleteContact={setDeleteContact}
-      />
+      <Style.Container>
+        <h3>Agenda Web</h3>
+        <Buttonlogout />
+        <Style.AllInfos>
+          <Style.Header>
+            <h5>Contatos</h5>
+            <AddContact newContact={newContact} setNewContact={setNewContact} />
+          </Style.Header>
+          <Style.MainDiv>
+            <InfosUser
+              list={contacts}
+              updateContact={updateContact}
+              setUpdateContact={setUpdateContact}
+              deleteContact={deleteContact}
+              setDeleteContact={setDeleteContact}
+            />
+          </Style.MainDiv>
+        </Style.AllInfos>
+      </Style.Container>
     </>
   );
 };

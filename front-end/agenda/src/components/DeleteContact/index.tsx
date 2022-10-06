@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { DeleteModal } from "./deleteModal";
+import { BsFillTrashFill } from "react-icons/bs";
+import * as Style from "./style";
 
 interface Props {
   id: number;
@@ -27,7 +29,9 @@ export const Delete = ({ id, deleteContact, setDeleteContact }: Props) => {
         </>
       ) : (
         <>
-          <button onClick={handleModal}>Deletar</button>
+          <Style.DeleteButton onClick={handleModal}>
+            <BsFillTrashFill />
+          </Style.DeleteButton>
         </>
       )}
     </>

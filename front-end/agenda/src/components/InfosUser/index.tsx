@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { ContactsInfos } from "../ContactsInfos";
 import { Delete } from "../DeleteContact";
 import { InfosButton } from "../SeeMoreButton";
+import * as Style from "./style";
 
 export interface ContactInfo {
   id: number;
@@ -38,39 +39,43 @@ export const InfosUser = ({
     <>
       {list.map((element, index) => (
         <>
-          <p key={index}>{element.name}</p>
-          <Delete
-            id={element.id}
-            deleteContact={deleteContact}
-            setDeleteContact={setDeleteContact}
-          />
-          {element.contact_info.map((item) =>
-            toogleOpenInfos && element.name === infosContact ? (
-              <>
+          <Style.MainInfos>
+            <Style.DeleteStyle>
+              <p key={index}>{element.name}</p>
+              <Delete
+                id={element.id}
+                deleteContact={deleteContact}
+                setDeleteContact={setDeleteContact}
+              />
+            </Style.DeleteStyle>
+            {element.contact_info.map((item) =>
+              toogleOpenInfos && element.name === infosContact ? (
+                <>
+                  <InfosButton
+                    value={"-"}
+                    toogleOpenInfos={false}
+                    setToogleOpenInfos={setToogleOpenInfos}
+                    infosContact={element.name}
+                    setInfosContact={setInfosContact}
+                  />
+                  <ContactsInfos
+                    key={item.email}
+                    item={item}
+                    updateContact={updateContact}
+                    setUpdateContact={setUpdateContact}
+                  />
+                </>
+              ) : (
                 <InfosButton
-                  value={"-"}
-                  toogleOpenInfos={false}
+                  value={"+"}
+                  toogleOpenInfos={true}
                   setToogleOpenInfos={setToogleOpenInfos}
                   infosContact={element.name}
                   setInfosContact={setInfosContact}
                 />
-                <ContactsInfos
-                  key={item.email}
-                  item={item}
-                  updateContact={updateContact}
-                  setUpdateContact={setUpdateContact}
-                />
-              </>
-            ) : (
-              <InfosButton
-                value={"+"}
-                toogleOpenInfos={true}
-                setToogleOpenInfos={setToogleOpenInfos}
-                infosContact={element.name}
-                setInfosContact={setInfosContact}
-              />
-            )
-          )}
+              )
+            )}
+          </Style.MainInfos>
         </>
       ))}
     </>

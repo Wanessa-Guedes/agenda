@@ -7,6 +7,7 @@ import { Home } from "../../Pages/Home";
 
 export const App = () => {
   const { isLogged } = useAuth();
+
   return (
     <>
       <Routes>

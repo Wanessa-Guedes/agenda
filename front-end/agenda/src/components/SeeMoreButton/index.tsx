@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import * as Style from "./style";
 
 interface Props {
   value: string;
@@ -15,14 +16,25 @@ export const InfosButton = ({
   infosContact,
   setInfosContact,
 }: Props) => {
-  function teste() {
+  function showInfos() {
     setToogleOpenInfos(toogleOpenInfos);
     setInfosContact(infosContact);
   }
 
   return (
     <>
-      <button onClick={teste}>{value}</button>
+      <Style.InfosButton onClick={showInfos}>{value}</Style.InfosButton>
+      {value === "-" ? (
+        <>
+          <Style.TextInfos>
+            <span>Whatsapp</span>
+            <span>E-mail</span>
+            <span>Telefone</span>
+          </Style.TextInfos>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

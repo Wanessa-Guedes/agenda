@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { api } from "../../api";
 import { ContactInfo } from "../InfosUser";
-import { Infos } from "./style";
+import * as Style from "./style";
 
 interface Props {
   item: ContactInfo;
@@ -68,42 +68,42 @@ export const ContactsInfos = ({
 
   return (
     <>
-      {/*       <Infos key={item.id}>
-        <p>{item.whatsapp}</p>
-        <p>{item.email}</p>
-        <p>{item.tel}</p>
-      </Infos> */}
-
-      <form onSubmit={handleSubmit(updateInfos)}>
-        <input
-          disabled={desabled}
-          placeholder="Whatsapp"
-          defaultValue={`${item.whatsapp}`}
-          {...register("whatsapp")}
-        />
-        <input
-          disabled={desabled}
-          placeholder="Email"
-          defaultValue={`${item.email}`}
-          {...register("email")}
-        />
-        <input
-          disabled={desabled}
-          placeholder="Telefone"
-          defaultValue={`${item.tel}`}
-          {...register("tel")}
-        />
-        {desabled ? (
-          <>
-            <button onClick={() => update("atualizar")}>Atualizar</button>
-          </>
-        ) : (
-          <>
-            <button type="submit">Registrar</button>
-            <button onClick={() => update("voltar")}>Voltar</button>
-          </>
-        )}
-      </form>
+      <Style.Infos>
+        <form onSubmit={handleSubmit(updateInfos)}>
+          <input
+            disabled={desabled}
+            placeholder="Whatsapp"
+            defaultValue={`${item.whatsapp}`}
+            {...register("whatsapp")}
+          />
+          <input
+            disabled={desabled}
+            placeholder="Email"
+            defaultValue={`${item.email}`}
+            {...register("email")}
+          />
+          <input
+            disabled={desabled}
+            placeholder="Telefone"
+            defaultValue={`${item.tel}`}
+            {...register("tel")}
+          />
+          {desabled ? (
+            <>
+              <Style.Button onClick={() => update("atualizar")}>
+                Atualizar
+              </Style.Button>
+            </>
+          ) : (
+            <>
+              <Style.Button type="submit">Registrar</Style.Button>
+              <Style.Button onClick={() => update("voltar")}>
+                Voltar
+              </Style.Button>
+            </>
+          )}
+        </form>
+      </Style.Infos>
     </>
   );
 };

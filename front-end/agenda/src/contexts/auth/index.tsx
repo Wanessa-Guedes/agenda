@@ -17,6 +17,7 @@ interface InfosAuth {
   isLogged: boolean;
   login: (params: LoginInfos) => void;
   logout: () => void;
+  checkLogin: () => void;
 }
 
 interface LoginInfos {
@@ -29,6 +30,13 @@ const AuthContext = createContext<InfosAuth>({} as InfosAuth);
 export const AuthProvider = ({ children }: ProviderProps) => {
   const navigate = useNavigate();
   const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  const checkLogin = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLogged(true);
+    }
+  };
 
   const login = ({ token, id }: LoginInfos) => {
     localStorage.setItem("token", token);
@@ -44,36 +52,12 @@ export const AuthProvider = ({ children }: ProviderProps) => {
     toast.success("Usuário deslogado");
   };
 
-  /*   const checkLog = () => {
-    const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
-
-    const headers = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    };
-
-    api
-      .get(`users/${userId}`, headers)
-      .then(() => {
-        setIsLogged(true);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        logout();
-        toast.error("É necessário logar novamente");
-      });
-  };
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) checkLog();
-  }, []); */
+    checkLogin();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isLogged, login, logout }}>
+    <AuthContext.Provider value={{ isLogged, login, logout, checkLogin }}>
       {children}
     </AuthContext.Provider>
   );
