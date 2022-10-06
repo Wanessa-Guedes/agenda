@@ -54,11 +54,12 @@ export const ContactsInfos = ({
         console.log("atualizei");
         console.log("res data", res.data);
         setUpdateContact(!updateContact);
+        setDisabled(true);
       })
       .catch((error) => {
         console.log("erro ao atualizar contato", error);
+        setDisabled(true);
       });
-    setDisabled(true);
   }
 
   function update(options: string) {

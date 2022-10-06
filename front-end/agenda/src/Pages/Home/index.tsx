@@ -21,7 +21,6 @@ export const Home = () => {
       },
     };
     api.get("/contacts", headers).then((res) => {
-      console.log(res.data);
       setContacts(res.data);
     });
   }, [token, isLogged, newContact, updateContact, deleteContact]);

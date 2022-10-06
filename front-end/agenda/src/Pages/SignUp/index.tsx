@@ -35,7 +35,8 @@ const SignUp = () => {
   } = useForm<SignUpInterface>({ resolver: joiResolver(signUpSchema) });
 
   function checkErrors() {
-    if (errors) {
+    console.log("errors", errors);
+    if (Object.keys(errors).length !== 0) {
       toast.error("Erro ao fazer cadastro!");
     }
   }
@@ -45,7 +46,6 @@ const SignUp = () => {
     api
       .post("/sign-up", infos)
       .then((res) => {
-        console.log("infos sign-in", res.data);
         navigate("/sign-in");
         setLoading(false);
       })

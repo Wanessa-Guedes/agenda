@@ -37,47 +37,51 @@ export const InfosUser = ({
 
   return (
     <>
-      {list.map((element, index) => (
-        <>
-          <Style.MainInfos>
-            <Style.DeleteStyle>
-              <p key={index}>{element.name}</p>
-              <Delete
-                id={element.id}
-                deleteContact={deleteContact}
-                setDeleteContact={setDeleteContact}
-              />
-            </Style.DeleteStyle>
-            {element.contact_info.map((item) =>
-              toogleOpenInfos && element.name === infosContact ? (
-                <>
+      {list.length === 0 ? (
+        <p>Você não tem contatos cadastrados ainda</p>
+      ) : (
+        list.map((element, index) => (
+          <>
+            <Style.MainInfos>
+              <Style.DeleteStyle>
+                <p key={index}>{element.name}</p>
+                <Delete
+                  id={element.id}
+                  deleteContact={deleteContact}
+                  setDeleteContact={setDeleteContact}
+                />
+              </Style.DeleteStyle>
+              {element.contact_info.map((item) =>
+                toogleOpenInfos && element.name === infosContact ? (
+                  <>
+                    <InfosButton
+                      value={"-"}
+                      toogleOpenInfos={false}
+                      setToogleOpenInfos={setToogleOpenInfos}
+                      infosContact={element.name}
+                      setInfosContact={setInfosContact}
+                    />
+                    <ContactsInfos
+                      key={item.email}
+                      item={item}
+                      updateContact={updateContact}
+                      setUpdateContact={setUpdateContact}
+                    />
+                  </>
+                ) : (
                   <InfosButton
-                    value={"-"}
-                    toogleOpenInfos={false}
+                    value={"+"}
+                    toogleOpenInfos={true}
                     setToogleOpenInfos={setToogleOpenInfos}
                     infosContact={element.name}
                     setInfosContact={setInfosContact}
                   />
-                  <ContactsInfos
-                    key={item.email}
-                    item={item}
-                    updateContact={updateContact}
-                    setUpdateContact={setUpdateContact}
-                  />
-                </>
-              ) : (
-                <InfosButton
-                  value={"+"}
-                  toogleOpenInfos={true}
-                  setToogleOpenInfos={setToogleOpenInfos}
-                  infosContact={element.name}
-                  setInfosContact={setInfosContact}
-                />
-              )
-            )}
-          </Style.MainInfos>
-        </>
-      ))}
+                )
+              )}
+            </Style.MainInfos>
+          </>
+        ))
+      )}
     </>
   );
 };
